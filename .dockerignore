@@ -1,0 +1,59 @@
+# Docker ignore file
+# Prevents unnecessary files from being copied to Docker image
+
+# Python
+__pycache__/
+*.py[cod]
+*$py.class
+*.so
+.Python
+*.egg-info/
+
+# Virtual Environment
+venv/
+ENV/
+env/
+
+# Environment files (should be passed via docker-compose)
+# .env
+
+# IDE
+.vscode/
+.idea/
+*.swp
+*.swo
+
+# Git
+.git/
+.gitignore
+
+# Database (will be mounted as volume)
+chroma_db/
+*.db
+*.sqlite
+
+# OS
+.DS_Store
+Thumbs.db
+
+# Documentation
+*.md
+QUICKSTART.md
+SETUP_COMPLETE.md
+
+# Test files
+test_*.py
+*_test.py
+
+# Scripts
+install_dependencies.*
+load_data.py
+run.py
+
+# Logs
+*.log
+logs/
+
+# Build artifacts
+dist/
+build/

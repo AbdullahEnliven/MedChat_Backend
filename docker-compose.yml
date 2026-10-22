@@ -1,0 +1,47 @@
+# MedChat Backend - Docker Compose
+# Run: docker-compose up -d
+
+version: '3.8'
+
+services:
+  medchat-backend:
+    build: .
+    container_name: medchat-backend
+    ports:
+      - "8000:8000"
+    env_file:
+      - .env
+    volumes:
+      - ./chroma_db:/app/chroma_db
+      - ./data:/app/data
+    restart: unless-stopped
+    healthcheck:
+      test: ["CMD", "curl", "-f", "http://localhost:8000/health"]
+      interval: 30s
+      timeout: 10s
+      retries: 3
+      start_period: 5s
+    networks:
+      - medchat-network
+
+  # Optional: Add PostgreSQL database
+  # postgres:
+  #   image: postgres:15-alpine
+  #   container_name: medchat-db
+  #   environment:
+  #     POSTGRES_USER: medchat
+  #     POSTGRES_PASSWORD: medchat_password
+  #     POSTGRES_DB: medchat_db
+  #   ports:
+  #     - "5432:5432"
+  #   volumes:
+  #     - postgres_data:/var/lib/postgresql/data
+  #   networks:
+  #     - medchat-network
+
+networks:
+  medchat-network:
+    driver: bridge
+
+# volumes:
+#   postgres_data:
